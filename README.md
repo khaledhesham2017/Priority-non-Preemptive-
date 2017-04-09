@@ -1,2 +1,2 @@
 # Priority-non-Preemptive-
-This tis type of   CPU Scheduling algorithims
+This is type of CPU Scheduling algorithims
