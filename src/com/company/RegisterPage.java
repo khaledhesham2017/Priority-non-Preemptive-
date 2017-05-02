@@ -27,7 +27,7 @@ public class RegisterPage extends VBox {
 
     private void setLayout(){
         setAlignment(Pos.CENTER);
-        setPadding(new Insets(20));
+        setPadding(new Insets(30));
         setSpacing(30);
 
         processNoLBL = new Label("Enter the number of processes:");
@@ -37,7 +37,7 @@ public class RegisterPage extends VBox {
         processNoTF.setMaxWidth(50);
         processNoTF.setFont(Font.font(18));
 
-        errorLBL = new Label("error: please enter a valid number");
+        errorLBL = new Label("Error: please enter a valid number!");
         errorLBL.setFont(Font.font(18));
         errorLBL.setTextFill(Paint.valueOf("#ff0000"));
         errorLBL.setVisible(false);
@@ -59,8 +59,12 @@ public class RegisterPage extends VBox {
 
         getChildren().clear();
 
-        Label titles = new Label("No.\t    Arrival Time \tCPU Burst Time \t  Priority\t   ");
-        getChildren().add(titles);
+        //Label titles = new Label("No.\t    Arrival Time \tCPU Burst Time \t  Priority\t   ");
+        //getChildren().add(titles);
+        Label no = new Label("No");
+        Label at = new Label("Arrival Time ");
+        Label ct = new Label("CPU Burst Time");
+        Label pt = new Label("Priority");
 
         TextField arrivaltimetf[] = new TextField[processNo];
         TextField cpubursttf[] = new TextField[processNo];
@@ -73,20 +77,24 @@ public class RegisterPage extends VBox {
             Label noOfProcesseslbl = new Label("P"+ (i+1));
 
             arrivaltimetf[i] = new TextField();
-            arrivaltimetf[i].setMaxWidth(100);
+            arrivaltimetf[i].setMaxWidth(110);
             cpubursttf[i] = new TextField();
-            cpubursttf[i].setMaxWidth(100);
+            cpubursttf[i].setMaxWidth(110);
             prioritytf[i] = new TextField();
-            prioritytf[i].setMaxWidth(100);
+            prioritytf[i].setMaxWidth(110);
+            if(i==0){
+                record.getChildren().addAll(new VBox(20,no,noOfProcesseslbl), new VBox(20,at,arrivaltimetf[i]), new VBox(20,ct,cpubursttf[i]), new VBox(20,pt,prioritytf[i]));
+            }else {
 
-            record.getChildren().addAll(noOfProcesseslbl, arrivaltimetf[i], cpubursttf[i], prioritytf[i]);
+                record.getChildren().addAll(noOfProcesseslbl, arrivaltimetf[i], cpubursttf[i], prioritytf[i]);
+            }
             getChildren().add(record);
         }
 
         getChildren().add(errorLBL);
         Button submitBtn = new Button("Submit");
         submitBtn.setOnAction(event -> {
-            if(isValid(arrivaltimetf,cpubursttf,prioritytf)){
+            if(areValid(arrivaltimetf,cpubursttf,prioritytf)){
                 ArrayList<Process> processes = new ArrayList<>();
                 for (int i = 0; i < processNo; i++) {
                     Process process = new Process();
@@ -120,7 +128,7 @@ public class RegisterPage extends VBox {
         return true;
     }
 
-    private Boolean isValid(TextField arrivaltimetf[], TextField cpubursttf[], TextField prioritytf[]){
+    private Boolean areValid(TextField arrivaltimetf[], TextField cpubursttf[], TextField prioritytf[]){
 
         for(int i = 0; i < Integer.parseInt(processNoTF.getText()); i++) {
             if(!isValid(arrivaltimetf[i].getText()) || !isValid(cpubursttf[i].getText()) || !isValid(prioritytf[i].getText())){

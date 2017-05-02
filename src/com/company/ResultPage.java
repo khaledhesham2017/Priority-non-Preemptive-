@@ -34,23 +34,27 @@ public class ResultPage extends VBox {
     }
 
     private void setLayout(){
-        setPadding(new Insets(10,10,10,10));
+        setPadding(new Insets(30));
+        setSpacing(30);
         Label title = new Label("Priority non-preemptive Scheduling");
         title.setFont(Font.font(26));
         getChildren().add(title);
+
         drawChart();
 
         TableColumn<ProcessResult, Integer> processNumberColumn = new TableColumn<>("No.");
-        processNumberColumn.setMinWidth(100);
+        processNumberColumn.setMinWidth(50);
         processNumberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
 
         TableColumn<ProcessResult, Integer> waitingTimeColumn = new TableColumn<>("Waiting Time");
-        waitingTimeColumn.setMinWidth(150);
+        waitingTimeColumn.setMinWidth(130);
         waitingTimeColumn.setCellValueFactory(new PropertyValueFactory<>("waitingTime"));
 
         TableColumn<ProcessResult, Integer> turnaroundTimeColumn = new TableColumn<>("Turnaround Time");
         turnaroundTimeColumn.setMinWidth(150);
         turnaroundTimeColumn.setCellValueFactory(new PropertyValueFactory<>("turnaroundTime"));
+
+
 
         TableColumn<ProcessResult, Integer> responseTimeColumn = new TableColumn<>("Response Time");
         responseTimeColumn.setMinWidth(150);
@@ -58,6 +62,8 @@ public class ResultPage extends VBox {
 
         ObservableList<ProcessResult> p = FXCollections.observableArrayList(processResults);
         table = new TableView<>();
+        table.setMaxWidth(335);
+        table.setMaxHeight(200);
         table.setItems(p);
         table.getColumns().addAll(processNumberColumn, waitingTimeColumn, turnaroundTimeColumn);
 
