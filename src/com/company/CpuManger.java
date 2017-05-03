@@ -15,11 +15,13 @@ public  class  CpuManger {
         int i = 0;
         int number;
         while (!processes.isEmpty()){
-            number=findPriority(i);
+            number = findPriority(i);
             if(number !=0){
-               i = addResult(deleteProcesses(number));
+               i = addResult(deleteProcesses(number),i);
             }
-            i++;
+            else {
+                i++;
+            }
         }
 
     }
@@ -42,32 +44,33 @@ public  class  CpuManger {
         processes.remove(process);
         return  process;
     }
-    private int  addResult  (Process process){
+    private int  addResult  (Process process, int time){
         ProcessResult processResult = new ProcessResult();
-        int start =0;
+        int start ;
         int end;
         processResult.setNumber(process.getNumber());
-        if(!processResults.isEmpty()){
-            start = processResults.get(processResults.size()-1).getEndTime();
-        }
+        start = time;
         processResult.setStartTime(start);
         end=start+process.getBurstTime();
         processResult.setEndTime(end);
-        processResult.setWaitingTime(start-process.getArrivalTime());
-        processResult.setTurnaroundTime(end-process.getArrivalTime());
+        int ArrivalTime =process.getArrivalTime();
+        processResult.setWaitingTime(start-ArrivalTime);
+        processResult.setResponseTime(start-ArrivalTime);
+        processResult.setTurnaroundTime(end-ArrivalTime);
         processResults.add(processResult);
         return end;
     }
     private  int  findPriority (int time) {
         length = processes.size();
-        Process proces = new Process();
+        Process process = new Process();
         int miniPriority =0 ;
         int number =0 ;
         for (int i = 0; i < length; i++) {
             if (processes.get(i).getArrivalTime() <= time) {
-                if (miniPriority == 0||miniPriority > processes.get(i).getPriority()){
+                int processPriority =processes.get(i).getPriority();
+                if (miniPriority == 0||miniPriority > processPriority ){
                     number=processes.get(i).getNumber();
-                   miniPriority = processes.get(i).getPriority();
+                   miniPriority = processPriority;
                 }
 
             }

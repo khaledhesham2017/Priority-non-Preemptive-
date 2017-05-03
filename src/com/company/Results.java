@@ -9,6 +9,7 @@ public class Results {
  private ArrayList<ProcessResult> processResults;
  private  float averageWaiting;
  private  float averageTurnaround;
+ private  float averageResponse;
 
     public Results(ArrayList<Process> processes) {
         CpuManger cpuManger = new CpuManger(processes);
@@ -20,6 +21,7 @@ public class Results {
         }
         averageWaiting = averageWaiting / l;
         averageTurnaround =averageTurnaround /l ;
+        averageResponse = averageWaiting;
     }
 
     public ArrayList<ProcessResult> getResults() {
@@ -33,6 +35,8 @@ public class Results {
     public float getAverageTurnaround() {
         return averageTurnaround;
     }
-
+    public float getAverageResponse() {
+        return averageResponse;
+    }
 
 }

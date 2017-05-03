@@ -9,6 +9,7 @@ public class ProcessResult {
     private  int endTime;
     private  int waitingTime;
     private  int turnaroundTime;
+    private  int  ResponseTime;
 
     public int getNumber() {
         return number;
@@ -48,5 +49,13 @@ public class ProcessResult {
 
     public void setTurnaroundTime(int turnaroundTime) {
         this.turnaroundTime = turnaroundTime;
+    }
+
+    public int getResponseTime() {
+        return ResponseTime;
+    }
+
+    public void setResponseTime(int responseTime) {
+        ResponseTime = responseTime;
     }
 }
